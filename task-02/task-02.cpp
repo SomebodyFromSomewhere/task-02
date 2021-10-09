@@ -15,8 +15,6 @@ std::vector<std::vector<int>> readFromFile(std::string file_name) {
 	file >> lines;
 	file >> columns;
 	std::vector<std::vector<int>> graph_array(lines, std::vector <int>(columns));
-	std::string str;
-	std::vector<std::string> tmp;
 	int vertex;
 	for (int i = 0; i < lines; i++)
 	{
@@ -39,8 +37,8 @@ std::vector<std::vector<int>> readFromFile(std::string file_name) {
 
 }
 
-
-void displayGraph(std::vector<std::vector<int>>& graph_array) {
+//for debug
+void displayArray(std::vector<std::vector<int>>& graph_array) {
 	for (int i = 0; i < graph_array.size(); i++)
 	{
 		for (int j = 0; j < graph_array[i].size(); j++)
@@ -49,9 +47,8 @@ void displayGraph(std::vector<std::vector<int>>& graph_array) {
 		}
 		std::cerr << std::endl;
 	}
-	//Sleep(1000);
+	//Sleep(1000); //add delay to see steps in DFS
 	system("CLS");
-	//std::cerr << "-----------" << std::endl;
 }
 
 void DFS(int x, int y) {
@@ -123,7 +120,7 @@ int main()
 	graph_array = readFromFile("INPUT.txt");
 	int N = 0;
 	int x = 0, y = 0, max_x = graph_array.size(), max_y = graph_array[0].size();
-	displayGraph(graph_array);
+	displayArray(graph_array);
 	for (int i = 0; i < lines; i++)
 	{
 		for (int j = 0; j < columns; j++)
@@ -132,7 +129,7 @@ int main()
 			{
 				DFS(j, i);
 				N++;
-				displayGraph(graph_array);
+				displayArray(graph_array);
 			}
 		}
 	}
