@@ -47,11 +47,12 @@ void displayArray(std::vector<std::vector<int>>& graph_array) {
 		}
 		std::cerr << std::endl;
 	}
-	//Sleep(1000); //add delay to see steps in DFS
+	Sleep(500); //add delay to see steps in DFS
 	system("CLS");
 }
 
 void DFS(int x, int y) {
+	displayArray(graph_array);
 	int current_value = graph_array[y][x], max_x = graph_array[0].size(), max_y = graph_array.size();
 	// check right
 	if (x + 1 < max_x) {
@@ -69,7 +70,7 @@ void DFS(int x, int y) {
 	}
 
 	// check up
-	if (y - 1 > 0) {
+	if (y - 1 >= 0) {
 		if (graph_array[y - 1][x] == 1)
 		{
 			DFS(x, y - 1);
@@ -84,7 +85,7 @@ void DFS(int x, int y) {
 	}
 
 	// check left
-	if (x - 1 > 0) {
+	if (x - 1 >= 0) {
 		if (graph_array[y][x - 1] == 1)
 		{
 			DFS(x - 1, y);
