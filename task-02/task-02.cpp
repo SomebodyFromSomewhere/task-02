@@ -9,26 +9,22 @@
 
 std::vector<std::vector<int>> graph_array;
 int lines, columns;
-void getLinesAndColumns(std::ifstream& inpt_file, int& lines, int& columns) {
-	std::string str;
-	std::getline(inpt_file, str);
-	std::vector<int> tmp = splitInt(str, ' ');
-	lines = tmp[0];
-	columns = tmp[1];
-}
 
-std::vector<std::vector<int>> getGraph(std::ifstream& file, int lines, int colomns) {
-	std::vector<std::vector<int>> graph_array(lines, std::vector <int>(colomns));
+std::vector<std::vector<int>> readFromFile(std::string file_name) {
+	std::ifstream file(file_name);
+	file >> lines;
+	file >> columns;
+	std::vector<std::vector<int>> graph_array(lines, std::vector <int>(columns));
 	std::string str;
 	std::vector<std::string> tmp;
 	int vertex;
 	for (int i = 0; i < lines; i++)
 	{
-		std::getline(file, str);
-		tmp = splitString(str, ' ');
-		for (int j = 0; j < tmp[0].size(); j++)
+		for (int j = 0; j < columns; j++)
 		{
-			if (tmp[0][j] == '.')
+			char ch;
+			file >> ch;
+			if (ch == '.')
 			{
 				vertex = 0;
 			}
@@ -43,11 +39,6 @@ std::vector<std::vector<int>> getGraph(std::ifstream& file, int lines, int colom
 
 }
 
-void readFromFile(std::string file_name, std::vector<std::vector<int>>& graph_array) {
-	std::ifstream file(file_name);
-	getLinesAndColumns(file, lines, columns);
-	graph_array = getGraph(file, lines, columns);
-}
 
 void displayGraph(std::vector<std::vector<int>>& graph_array) {
 	for (int i = 0; i < graph_array.size(); i++)
@@ -129,7 +120,7 @@ void DFS(int x, int y) {
 int main()
 {
 	clock_t start = clock();
-	readFromFile("INPUT.txt", graph_array);
+	graph_array = readFromFile("INPUT.txt");
 	int N = 0;
 	int x = 0, y = 0, max_x = graph_array.size(), max_y = graph_array[0].size();
 	displayGraph(graph_array);
